@@ -27,6 +27,7 @@ ENV GIT_USER_EMAIL john.doe@mycompany.com
 
 ENV JAVA_HOME /usr/lib/jvm/java-${JAVA_HOME_VERSION}
 ENV MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=512m -XX:+CMSClassUnloadingEnabled"
+ENV SBT_OPTS="-Xmx512m -XX:+CMSClassUnloadingEnabled -Dsbt.override.build.repos=false -Dsbt.jse.engineType=Node"
 
 RUN curl -SL http://cbs.centos.org/kojifiles/packages/docker/${DOCKER_VERSION}/0.3.rc7.el7/x86_64/docker-${DOCKER_VERSION}-0.3.rc7.el7.x86_64.rpm -o docker-${DOCKER_VERSION}-0.3.rc7.el7.x86_64.rpm \
     && yum localinstall -y docker-${DOCKER_VERSION}-0.3.rc7.el7.x86_64.rpm \
@@ -54,6 +55,10 @@ RUN curl -SL https://bintray.com/sbt/rpm/rpm -o /etc/yum.repos.d/bintray-sbt-rpm
 	&& ln -s /usr/local/activator-${TYPESAFE_ACTIVATOR_VERSION}-minimal /usr/local/typesafe-activator \
 	&& ln -s /usr/local/typesafe-activator/activator /usr/local/bin/activator
 
+
+COPY bashrc .bashrc
+RUN mv .bashrc ~/.bashrc
+
 COPY gitignore .gitignore
 RUN mv .gitignore ~/.gitignore
 
@@ -66,4 +71,4 @@ RUN mkdir -p ~/.vnc \
 
 EXPOSE 5901
 
-CMD /setup.sh && vncserver :1 -name vnc -geometry 800x640 && bash
+CMD /setup.sh && vncserver :1 -name vnc -geometry 800x640 && tail -f ~/.vnc/*:1.log
