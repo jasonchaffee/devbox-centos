@@ -11,6 +11,10 @@ RUN yum update -y \
     && yum install -y vim tumx xterm lynx \
     && yum install -y tigervnc-server
 
+ENV DOCKER_VERSION 1.6.0
+ENV DOCKER_COMPOSE_VERSION 1.2.0
+ENV DOCKER_MACHINE_VERSION v0.2.0
+
 ENV JAVA_7 1.7.0
 ENV JAVA_8 1.8.0
 ENV JAVA_HOME_VERSION ${JAVA_7}
@@ -19,10 +23,22 @@ ENV SCALA_VERSION 2.11.6
 ENV TYPESAFE_ACTIVATOR_VERSION 1.3.2
 
 ENV GIT_USER_NAME John Doe
-ENV GIT_USER_EMAIL jdoe@mycompany.com
+ENV GIT_USER_EMAIL john.doe@mycompany.com
 
 ENV JAVA_HOME /usr/lib/jvm/java-${JAVA_HOME_VERSION}
 ENV MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=512m -XX:+CMSClassUnloadingEnabled"
+
+RUN curl -SL http://cbs.centos.org/kojifiles/packages/docker/${DOCKER_VERSION}/0.3.rc7.el7/x86_64/docker-${DOCKER_VERSION}-0.3.rc7.el7.x86_64.rpm -o docker-${DOCKER_VERSION}-0.3.rc7.el7.x86_64.rpm \
+    && yum localinstall -y docker-${DOCKER_VERSION}-0.3.rc7.el7.x86_64.rpm \
+    && yum upgrade -y device-mapper-event-libs \
+    && rm docker-${DOCKER_VERSION}-0.3.rc7.el7.x86_64.rpm
+
+RUN curl -SL https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose \
+    && chmod +x /usr/local/bin/docker-compose \
+    && curl -SL https://raw.githubusercontent.com/docker/compose/${DOCKER_COMPOSE_VERSION}/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
+
+RUN curl -SL https://github.com/docker/machine/releases/download/${DOCKER_MACHINE_VERSION}/docker-machine_linux-amd64 -o /usr/local/bin/docker-machine \
+    && chmod +x /usr/local/bin/docker-machine
 
 RUN yum install -y java-${JAVA_7}-openjdk-devel \
     && yum install -y java-${JAVA_8}-openjdk-devel \
@@ -42,7 +58,7 @@ COPY gitignore .gitignore
 RUN mv .gitignore ~/.gitignore
 
 COPY git-setup.sh git-setup.sh
-RUN chmod a+x git-setup.sh
+RUN chmod +x git-setup.sh
 
 RUN mkdir -p ~/.vnc \
     && echo password | vncpasswd -f > ~/.vnc/passwd \
