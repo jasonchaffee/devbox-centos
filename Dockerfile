@@ -8,7 +8,7 @@ RUN yum update -y \
     && yum install -y git git-svn subversion \
     && yum install -y colordiff postfix \
     && yum install -y gzip tar unzip \
-    && yum install -y vim tumx xterm lynx \
+    && yum install -y vim tumx xterm lynx wget \
     && yum install -y tigervnc-server
 
 ENV DOCKER_VERSION 1.6.0
