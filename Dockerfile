@@ -1,5 +1,7 @@
 FROM centos:7
 
+MAINTAINER Jason Chaffee <jasonchaffee@gmail.com>
+
 RUN yum update -y \
     && yum clean all \
     && yum install -y epel-release deltarpm \
