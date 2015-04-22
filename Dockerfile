@@ -14,12 +14,15 @@ RUN yum update -y \
 ENV JAVA_7 1.7.0
 ENV JAVA_8 1.8.0
 ENV JAVA_HOME_VERSION ${JAVA_7}
-ENV JAVA_HOME /usr/lib/jvm/java-${JAVA_HOME_VERSION}
-ENV MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=512m -XX:+CMSClassUnloadingEnabled"
+
 ENV SCALA_VERSION 2.11.6
 ENV TYPESAFE_ACTIVATOR_VERSION 1.3.2
-ENV USER_NAME John Doe
-ENV USER_EMAIL jdoe@mycompany.com
+
+ENV GIT_USER_NAME John Doe
+ENV GIT_USER_EMAIL jdoe@mycompany.com
+
+ENV JAVA_HOME /usr/lib/jvm/java-${JAVA_HOME_VERSION}
+ENV MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=512m -XX:+CMSClassUnloadingEnabled"
 
 RUN yum install -y java-${JAVA_7}-openjdk-devel \
     && yum install -y java-${JAVA_8}-openjdk-devel \
