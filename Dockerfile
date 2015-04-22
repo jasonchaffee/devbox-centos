@@ -50,6 +50,4 @@ RUN mkdir -p ~/.vnc \
 
 EXPOSE 5901
 
-WORKDIR ~/
-
 CMD /git-setup.sh && vncserver :1 -name vnc -geometry 800x640 && tail -f ~/.vnc/*:1.log
