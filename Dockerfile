@@ -57,8 +57,8 @@ RUN curl -SL https://bintray.com/sbt/rpm/rpm -o /etc/yum.repos.d/bintray-sbt-rpm
 COPY gitignore .gitignore
 RUN mv .gitignore ~/.gitignore
 
-COPY git-setup.sh git-setup.sh
-RUN chmod +x git-setup.sh
+COPY setup.sh setup.sh
+RUN chmod +x setup.sh
 
 RUN mkdir -p ~/.vnc \
     && echo password | vncpasswd -f > ~/.vnc/passwd \
@@ -66,4 +66,4 @@ RUN mkdir -p ~/.vnc \
 
 EXPOSE 5901
 
-CMD /setup.sh && vncserver :1 -name vnc -geometry 800x640 && tail -f ~/.vnc/*:1.log
+CMD /setup.sh && vncserver :1 -name vnc -geometry 800x640 && bash
