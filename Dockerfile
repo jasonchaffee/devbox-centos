@@ -21,10 +21,8 @@ ENV JAVA_HOME_VERSION ${JAVA_7}
 ENV SCALA_VERSION 2.11.6
 ENV TYPESAFE_ACTIVATOR_VERSION 1.3.2
 
-ENV GIT_USER_NAME John Doe
-ENV GIT_USER_EMAIL john.doe@mycompany.com
-
 ENV JAVA_HOME /usr/lib/jvm/java-${JAVA_HOME_VERSION}
+
 ENV MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=512m -XX:+CMSClassUnloadingEnabled"
 ENV SBT_OPTS="-Xmx512m -XX:+CMSClassUnloadingEnabled -Dsbt.override.build.repos=false -Dsbt.jse.engineType=Node"
 
