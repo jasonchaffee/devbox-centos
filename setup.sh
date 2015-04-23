@@ -10,6 +10,6 @@ if [ "$GIT_USER_NAME" ]; then
 fi
 
 if [ "$GIT_USER_EMAIL" ]; then
-    git config --global user.email $GIT_USER_EMAIL
+    git config --global user.email "$GIT_USER_EMAIL"
 fi
 
