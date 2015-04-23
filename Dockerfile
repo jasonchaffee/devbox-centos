@@ -55,7 +55,6 @@ RUN curl -SL https://bintray.com/sbt/rpm/rpm -o /etc/yum.repos.d/bintray-sbt-rpm
 	&& ln -s /usr/local/activator-${TYPESAFE_ACTIVATOR_VERSION}-minimal /usr/local/typesafe-activator \
 	&& ln -s /usr/local/typesafe-activator/activator /usr/local/bin/activator
 
-
 COPY bashrc .bashrc
 RUN mv .bashrc ~/.bashrc
 
