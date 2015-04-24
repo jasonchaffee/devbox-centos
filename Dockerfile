@@ -7,7 +7,7 @@ RUN yum update -y \
     && yum install -y epel-release deltarpm \
     && yum install -y git git-svn subversion \
     && yum install -y colordiff gzip tar unzip \
-    && yum install -y vim tumx xterm lynx wget \
+    && yum install -y vim tumx xterm firefox lynx wget \
     && yum install -y tigervnc-server
 
 ENV DOCKER_VERSION 1.6.0
@@ -61,10 +61,13 @@ RUN mv .gitignore ~/.gitignore
 COPY setup.sh setup.sh
 RUN chmod +x setup.sh
 
+COPY xstartup xstartup
+
 RUN mkdir -p ~/.vnc \
+    && mv xstartup ~/.vnc/xstartup \
     && echo password | vncpasswd -f > ~/.vnc/passwd \
     && chmod 600 ~/.vnc/passwd
 
 EXPOSE 5901
 
-CMD /setup.sh && vncserver :1 -name vnc -geometry 800x640 && tail -f ~/.vnc/*:1.log
+CMD /setup.sh && vncserver :1 -name vnc && tail -f ~/.vnc/*:1.log
