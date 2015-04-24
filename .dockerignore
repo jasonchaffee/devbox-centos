@@ -5,6 +5,7 @@
 # Git files
 .git
 .gitignore
+README.md
 
 # SVN files
 .svn
