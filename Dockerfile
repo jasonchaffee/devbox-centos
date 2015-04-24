@@ -5,10 +5,9 @@ MAINTAINER Jason Chaffee <jasonchaffee@gmail.com>
 RUN yum update -y \
     && yum clean all \
     && yum install -y epel-release deltarpm \
-    && yum install -y git git-svn subversion \
-    && yum install -y colordiff gzip tar unzip \
-    && yum install -y vim tumx xterm firefox lynx wget \
-    && yum install -y tigervnc-server
+    && yum clean all \
+    && yum install -y git git-svn subversion colordiff gzip tar unzip vim tumx xterm firefox lynx wget tigervnc-server \
+    && yum clean all
 
 ENV DOCKER_VERSION 1.6.0
 ENV DOCKER_COMPOSE_VERSION 1.2.0
@@ -29,6 +28,7 @@ ENV SBT_OPTS="-Xmx512m -XX:+CMSClassUnloadingEnabled -Dsbt.override.build.repos=
 RUN curl -SL http://cbs.centos.org/kojifiles/packages/docker/${DOCKER_VERSION}/0.3.rc7.el7/x86_64/docker-${DOCKER_VERSION}-0.3.rc7.el7.x86_64.rpm -o docker-${DOCKER_VERSION}-0.3.rc7.el7.x86_64.rpm \
     && yum localinstall -y docker-${DOCKER_VERSION}-0.3.rc7.el7.x86_64.rpm \
     && yum upgrade -y device-mapper-event-libs \
+    && yum clean all \
     && rm docker-${DOCKER_VERSION}-0.3.rc7.el7.x86_64.rpm
 
 RUN curl -SL https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose \
@@ -41,12 +41,14 @@ RUN curl -SL https://github.com/docker/machine/releases/download/${DOCKER_MACHIN
 RUN yum install -y java-${JAVA_7}-openjdk-devel \
     && yum install -y java-${JAVA_8}-openjdk-devel \
 	&& curl -SL http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -o /etc/yum.repos.d/epel-apache-maven.repo \
-	&& yum install -y apache-maven
+	&& yum install -y apache-maven \
+	&& yum clean all
 
 RUN curl -SL https://bintray.com/sbt/rpm/rpm -o /etc/yum.repos.d/bintray-sbt-rpm.repo \
 	&& yum install -y sbt \
 	&& curl -SL http://downloads.typesafe.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.rpm -o scala-${SCALA_VERSION}.rpm \
 	&& yum install -y scala-${SCALA_VERSION}.rpm \
+	&& yum clean all \
 	&& curl -SL http://downloads.typesafe.com/typesafe-activator/${TYPESAFE_ACTIVATOR_VERSION}/typesafe-activator-${TYPESAFE_ACTIVATOR_VERSION}-minimal.zip -o typesafe-activator-${TYPESAFE_ACTIVATOR_VERSION}-minimal.zip \
 	&& unzip typesafe-activator-${TYPESAFE_ACTIVATOR_VERSION}-minimal.zip -d /usr/local/ \
 	&& ln -s /usr/local/activator-${TYPESAFE_ACTIVATOR_VERSION}-minimal /usr/local/typesafe-activator \
