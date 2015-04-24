@@ -64,6 +64,7 @@ COPY setup.sh setup.sh
 RUN chmod +x setup.sh
 
 COPY xstartup xstartup
+RUN chmod +x xstartup
 
 RUN mkdir -p ~/.vnc \
     && mv xstartup ~/.vnc/xstartup \
