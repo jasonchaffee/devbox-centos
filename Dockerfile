@@ -6,7 +6,7 @@ RUN yum update -y \
     && yum clean all \
     && yum install -y epel-release deltarpm \
     && yum clean all \
-    && yum install -y git git-svn subversion colordiff gzip tar unzip vim tumx xterm firefox lynx wget tigervnc-server \
+    && yum install -y git git-svn subversion colordiff gzip tar unzip vim tumx xterm zsh firefox lynx wget tigervnc-server \
     && yum clean all
 
 ENV DOCKER_VERSION 1.6.0
@@ -56,6 +56,9 @@ RUN curl -SL https://bintray.com/sbt/rpm/rpm -o /etc/yum.repos.d/bintray-sbt-rpm
 
 COPY bashrc .bashrc
 RUN mv .bashrc ~/.bashrc
+
+COPY zshhrc .zshhrc
+RUN mv .zshrc ~/.zshrc
 
 COPY gitignore .gitignore
 RUN mv .gitignore ~/.gitignore
