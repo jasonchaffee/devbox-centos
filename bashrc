@@ -1,7 +1,6 @@
 # .bashrc
 
 # User specific aliases and functions
-
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
@@ -29,4 +28,3 @@ export SBT_OPTS="-Xmx512m -XX:+CMSClassUnloadingEnabled -Dsbt.override.build.rep
 
 # Use colorsvn instead of svn
 #alias svn=colorsvn
-
