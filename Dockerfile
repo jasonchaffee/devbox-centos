@@ -57,7 +57,7 @@ RUN curl -SL https://bintray.com/sbt/rpm/rpm -o /etc/yum.repos.d/bintray-sbt-rpm
 COPY bashrc .bashrc
 RUN mv .bashrc ~/.bashrc
 
-COPY zshhrc .zshhrc
+COPY zshrc .zshrc
 RUN mv .zshrc ~/.zshrc
 
 #RUN chsh -s /bin/zsh
