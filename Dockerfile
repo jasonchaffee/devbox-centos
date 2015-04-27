@@ -54,11 +54,9 @@ RUN curl -SL https://bintray.com/sbt/rpm/rpm -o /etc/yum.repos.d/bintray-sbt-rpm
 	&& ln -s /usr/local/activator-${TYPESAFE_ACTIVATOR_VERSION}-minimal /usr/local/typesafe-activator \
 	&& ln -s /usr/local/typesafe-activator/activator /usr/local/bin/activator
 
-COPY bashrc .bashrc
-RUN mv .bashrc ~/.bashrc
+RUN git clone https://github.com/jasonchaffee/devbox-config.git .devbox-config
 
-COPY zshrc .zshrc
-RUN mv .zshrc ~/.zshrc
+RUN .devbox-config/config install
 
 RUN chsh -s $(which zsh)
 
