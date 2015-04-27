@@ -58,11 +58,6 @@ RUN git clone https://github.com/jasonchaffee/devbox-config.git .devbox-config
 
 RUN .devbox-config/config install
 
-RUN chsh -s $(which zsh)
-
-COPY gitignore .gitignore
-RUN mv .gitignore ~/.gitignore
-
 COPY setup.sh setup.sh
 RUN chmod +x setup.sh
 
@@ -73,6 +68,8 @@ RUN mkdir -p ~/.vnc \
     && mv xstartup ~/.vnc/xstartup \
     && echo password | vncpasswd -f > ~/.vnc/passwd \
     && chmod 600 ~/.vnc/passwd
+
+RUN chsh -s $(which zsh)
 
 EXPOSE 5901
 
