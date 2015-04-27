@@ -60,7 +60,7 @@ RUN mv .bashrc ~/.bashrc
 COPY zshrc .zshrc
 RUN mv .zshrc ~/.zshrc
 
-#RUN chsh -s /bin/zsh
+RUN chsh -s $(which zsh)
 
 COPY gitignore .gitignore
 RUN mv .gitignore ~/.gitignore
