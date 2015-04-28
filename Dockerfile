@@ -48,18 +48,17 @@ RUN curl -SL https://bintray.com/sbt/rpm/rpm -o /etc/yum.repos.d/bintray-sbt-rpm
 	&& yum install -y sbt \
 	&& curl -SL http://downloads.typesafe.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.rpm -o scala-${SCALA_VERSION}.rpm \
 	&& yum install -y scala-${SCALA_VERSION}.rpm \
+	&& rm scala-${SCALA_VERSION}.rpm \
 	&& yum clean all \
 	&& curl -SL http://downloads.typesafe.com/typesafe-activator/${TYPESAFE_ACTIVATOR_VERSION}/typesafe-activator-${TYPESAFE_ACTIVATOR_VERSION}-minimal.zip -o typesafe-activator-${TYPESAFE_ACTIVATOR_VERSION}-minimal.zip \
 	&& unzip typesafe-activator-${TYPESAFE_ACTIVATOR_VERSION}-minimal.zip -d /usr/local/ \
 	&& ln -s /usr/local/activator-${TYPESAFE_ACTIVATOR_VERSION}-minimal /usr/local/typesafe-activator \
-	&& ln -s /usr/local/typesafe-activator/activator /usr/local/bin/activator
+	&& ln -s /usr/local/typesafe-activator/activator /usr/local/bin/activator \
+	&& rm typesafe-activator-${TYPESAFE_ACTIVATOR_VERSION}-minimal.zip
 
 RUN git clone https://github.com/jasonchaffee/devbox-config.git .devbox-config
 
 RUN .devbox-config/config install
-
-COPY setup.sh setup.sh
-RUN chmod +x setup.sh
 
 COPY xstartup xstartup
 RUN chmod +x xstartup
@@ -70,7 +69,8 @@ RUN mkdir -p ~/.vnc \
     && chmod 600 ~/.vnc/passwd
 
 RUN chsh -s $(which zsh)
+RUN su -s /bin/zsh -c '. ~/.zshrc' root
 
 EXPOSE 5901
 
-CMD /setup.sh && vncserver :1 -name vnc && tail -f ~/.vnc/*:1.log
+CMD /.devbox-config/config git && vncserver :1 -name vnc && tail -f ~/.vnc/*:1.log
