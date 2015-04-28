@@ -56,9 +56,9 @@ RUN curl -SL https://bintray.com/sbt/rpm/rpm -o /etc/yum.repos.d/bintray-sbt-rpm
 	&& ln -s /usr/local/typesafe-activator/activator /usr/local/bin/activator \
 	&& rm typesafe-activator-${TYPESAFE_ACTIVATOR_VERSION}-minimal.zip
 
-RUN git clone https://github.com/jasonchaffee/devbox-config.git .devbox-config
+RUN git clone https://github.com/jasonchaffee/devbox-config.git /.devbox-config
 
-RUN .devbox-config/config install
+RUN /.devbox-config/config install
 
 COPY xstartup xstartup
 RUN chmod +x xstartup
