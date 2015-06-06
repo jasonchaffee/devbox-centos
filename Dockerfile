@@ -9,7 +9,7 @@ RUN yum update -y \
     && yum install -y git git-svn subversion colordiff gzip tar unzip vim tmux xterm zsh firefox lynx wget tigervnc-server \
     && yum clean all
 
-ENV DOCKER_VERSION 1.6.0
+ENV DOCKER_VERSION 1.6.2
 ENV DOCKER_COMPOSE_VERSION 1.2.0
 ENV DOCKER_MACHINE_VERSION v0.2.0
 
