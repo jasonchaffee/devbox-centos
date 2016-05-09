@@ -6,7 +6,7 @@ RUN yum update -y \
     && yum clean all \
     && yum install -y epel-release deltarpm \
     && yum clean all \
-    && yum install -y git git-svn subversion colordiff gzip tar unzip vim tmux xterm zsh firefox lynx wget tigervnc-server \
+    && yum install -y git git-svn subversion colorsvn colordiff colortail gzip tar unzip vim tmux xterm zsh firefox lynx wget tigervnc-server \
     && yum clean all
 
 ENV DOCKER_VERSION 1.6.2
