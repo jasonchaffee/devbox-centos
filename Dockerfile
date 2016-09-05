@@ -1,6 +1,6 @@
 FROM centos:7
 
-MAINTAINER Jason Chaffee <jasonchaffee@gmail.com>
+MAINTAINER Jason Chaffee <jason.chaffee+docker@gmail.com>
 
 RUN yum update -y \
     && yum clean all \
